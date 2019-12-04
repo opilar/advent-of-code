@@ -1,0 +1,9 @@
+[package]
+name = "advent-of-code"
+version = "0.1.0"
+authors = ["Mikhail Rybakov <me@opilar.com>"]
+edition = "2018"
+
+[dependencies]
+aoc-runner = "0.2.0"
+aoc-runner-derive = "0.2.0"
