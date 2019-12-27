@@ -14,9 +14,13 @@ pub fn part1(input: &[u32]) -> u32 {
     program[0]
 }
 
-fn fix(mut state: Vec<u32>) -> Vec<u32> {
-    state[1] = 12;
-    state[2] = 2;
+fn fix(state: Vec<u32>) -> Vec<u32> {
+    fix_with(state, 12, 2)
+}
+
+fn fix_with(mut state: Vec<u32>, first: u32, second: u32) -> Vec<u32> {
+    state[1] = first;
+    state[2] = second;
 
     state
 }
@@ -47,6 +51,29 @@ fn run(mut state: Vec<u32>) -> Vec<u32> {
         }
     }
     state
+}
+
+#[aoc(day2, part2)]
+pub fn part2(input: &[u32]) -> u32 {
+    const RESULT_TO_FIND: u32 = 19690720;
+
+    for noun in 0..100 {
+        for verb in 0..100 {
+            let mut program = Vec::from(input);
+            program = fix_with(program, noun, verb);
+            let result = run_and_return(program);
+            if result == RESULT_TO_FIND {
+                return 100*noun + verb;
+            }
+        }
+    }
+
+    panic!("Failed to find verb and noun");
+}
+
+fn run_and_return(mut program: Vec<u32>) -> u32 {
+    program = run(program);
+    program[0]
 }
 
 #[cfg(test)]
